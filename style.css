@@ -1,11 +1,18 @@
 .keyboard {
-  display: grid;
-  grid-template-columns: repeat(14, 1fr);
-  /* Будет создано 3 ряда */
-  grid-template-rows: repeat(5, 1fr);
+  max-width: 500px;
+  width: 100%;
+}
+
+.row{
+  display: flex;
+  width: 100%;
 }
 
 .char {
   border: 1px solid black;
   padding: 5px;
+}
+
+.active {
+  background-color: red;
 }
