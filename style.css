@@ -1,9 +1,14 @@
+.textarea {
+  max-width: 500px;
+  width: 100%;
+}
+
 .keyboard {
   max-width: 500px;
   width: 100%;
 }
 
-.row{
+.row {
   display: flex;
   width: 100%;
 }
