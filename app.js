@@ -18,10 +18,10 @@ const drawKeyboard = (arr) => {
     }
     return acc;
   }, [[]]);
-  for (let i = 0; i < keyboardLayout.length; i++) {
+  for (let i = 0; i < keyboardLayout.length; i += 1) {
     const row = document.createElement('div');
     row.className = 'row';
-    for (let j = 0; j < keyboardLayout[i].length; j++) {
+    for (let j = 0; j < keyboardLayout[i].length; j += 1) {
       row.innerHTML += `<div class="char" data="${code[i][j]}">${keyboardLayout[i][j]}</div>`;
     }
     keyboard.appendChild(row);
@@ -66,23 +66,38 @@ window.addEventListener('load', getLocalStorage);
 
 window.addEventListener('keydown', (event) => {
   if (event.ctrlKey && event.altKey) {
+    document.querySelector('.keyboard').remove();
     if (lang === 'ru') {
       lang = 'en';
       if (event.getModifierState && event.getModifierState('CapsLock')) {
-        document.querySelector('.keyboard').remove();
         document.querySelector('.textarea').after(drawKeyboard(symbolsUpperEn));
       } else {
-        document.querySelector('.keyboard').remove();
         document.querySelector('.textarea').after(drawKeyboard(symbolsLowEn));
       }
     } else {
       lang = 'ru';
       if (event.getModifierState && event.getModifierState('CapsLock')) {
-        document.querySelector('.keyboard').remove();
         document.querySelector('.textarea').after(drawKeyboard(symbolsUpperRu));
       } else {
-        document.querySelector('.keyboard').remove();
         document.querySelector('.textarea').after(drawKeyboard(symbolsLowRu));
+      }
+    }
+  }
+  if (event.code === 'CapsLock') {
+    document.querySelector('.keyboard').remove();
+    if (event.getModifierState && event.getModifierState('CapsLock')) {
+      if (lang === 'ru') {
+        document.querySelector('.textarea').after(drawKeyboard(symbolsUpperRu));
+      }
+      if (lang === 'en') {
+        document.querySelector('.textarea').after(drawKeyboard(symbolsUpperEn));
+      }
+    } else {
+      if (lang === 'ru') {
+        document.querySelector('.textarea').after(drawKeyboard(symbolsLowRu));
+      }
+      if (lang === 'en') {
+        document.querySelector('.textarea').after(drawKeyboard(symbolsLowEn));
       }
     }
   }
