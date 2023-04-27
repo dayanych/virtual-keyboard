@@ -7,6 +7,16 @@ const code = [['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'D
 
 let lang = 'en';
 
+const updateChars = () => {
+  const chars = document.querySelectorAll('.char');
+  chars.forEach((char) => {
+    char.addEventListener('click', () => {
+      // document.querySelector('.textarea').value += char.innerText;
+      pushChar(char.innerText, char);
+    });
+  });
+};
+
 const drawKeyboard = (arr) => {
   const keyboard = document.createElement('div');
   keyboard.className = 'keyboard';
@@ -38,7 +48,7 @@ const drawHtml = (arr) => {
   desc.className = 'desc';
   desc.innerText = 'Клавиатура создана в операционной системе Windows\nДля переключения языка комбинация: левые ctrl + alt';
   textArea.className = 'textarea';
-  textArea.setAttribute('autofocus', true);
+  textArea.setAttribute('disabled', 'disabled');
   document.body.prepend(desc);
   document.body.prepend(drawKeyboard(arr));
   document.body.prepend(textArea);
@@ -60,12 +70,13 @@ const getLocalStorage = () => {
   } else {
     drawHtml(symbolsLowEn);
   }
+  updateChars();
 };
 window.addEventListener('beforeunload', setLocalStorage);
 window.addEventListener('load', getLocalStorage);
 
 window.addEventListener('keydown', (event) => {
-  if (event.ctrlKey && event.altKey) {
+  if ((event.ctrlKey && event.altKey)) {
     document.querySelector('.keyboard').remove();
     if (lang === 'ru') {
       lang = 'en';
@@ -82,6 +93,7 @@ window.addEventListener('keydown', (event) => {
         document.querySelector('.textarea').after(drawKeyboard(symbolsLowRu));
       }
     }
+    updateChars();
   }
   if (event.code === 'CapsLock') {
     document.querySelector('.keyboard').remove();
@@ -100,8 +112,40 @@ window.addEventListener('keydown', (event) => {
         document.querySelector('.textarea').after(drawKeyboard(symbolsLowEn));
       }
     }
+    updateChars();
   }
 });
+
+const pushChar = (eventCode, char) => {
+  const textarea = document.querySelector('.textarea');
+  if (eventCode === 'ControlLeft' || eventCode === 'ControlRight' || eventCode === 'AltLeft' || eventCode === 'AltRight' || eventCode === 'ShiftLeft' || eventCode === 'ShiftRight' || eventCode === 'CapsLock' || eventCode === 'MetaLeft' || eventCode === 'Win' || eventCode === 'Ctrl' || eventCode === 'Alt' || eventCode === 'Shift') {
+    return;
+  }
+  switch (eventCode) {
+    case 'Space':
+      textarea.value += ' ';
+      break;
+    case '':
+      textarea.value += ' ';
+      break;
+    case 'Tab':
+      textarea.value += '    ';
+      break;
+    case 'Enter':
+      textarea.value += '\n';
+      break;
+    case 'Backspace':
+      textarea.value = textarea.value.slice(0, -1);
+      break;
+    case 'Delete':
+      // переделать
+      textarea.value = textarea.value.slice(1, textarea.value.length);
+      break;
+    default:
+      textarea.value += char.innerText;
+      break;
+  }
+}
 
 document.onkeydown = (event) => {
   const char = document.querySelector(`[data="${event.code}"]`);
@@ -110,6 +154,7 @@ document.onkeydown = (event) => {
 document.onkeyup = (event) => {
   const char = document.querySelector(`[data="${event.code}"]`);
   char.classList.remove('active');
+  pushChar(event.code, char);
 };
 
 // отмена дефолтного поведения клавиш
@@ -129,6 +174,6 @@ window.addEventListener('keydown', (event) => {
 });
 
 // постоянный фокус
-document.onclick = () => {
-  document.querySelector('.textarea').focus();
-};
+// document.onclick = () => {
+//   document.querySelector('.textarea').focus();
+// };
