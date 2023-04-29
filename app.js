@@ -7,11 +7,45 @@ const code = [['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'D
 
 let lang = 'en';
 
+const getPosition = () => {
+  return document.querySelector('.textarea').selectionStart;
+};
+
+const pushChar = (eventCode, char) => {
+  const textarea = document.querySelector('.textarea');
+  const index = getPosition();
+  if (eventCode === 'ControlLeft' || eventCode === 'ControlRight' || eventCode === 'AltLeft' || eventCode === 'AltRight' || eventCode === 'ShiftLeft' || eventCode === 'ShiftRight' || eventCode === 'CapsLock' || eventCode === 'MetaLeft' || eventCode === 'Win' || eventCode === 'Ctrl' || eventCode === 'Alt' || eventCode === 'Shift') {
+    return;
+  }
+  switch (eventCode) {
+    case 'Space':
+      textarea.value += ' ';
+      break;
+    case '':
+      textarea.value += ' ';
+      break;
+    case 'Tab':
+      textarea.value += '    ';
+      break;
+    case 'Enter':
+      textarea.value += '\n';
+      break;
+    case 'Backspace':
+      textarea.value = textarea.value.slice(0, index - 1) + textarea.value.slice(index, textarea.value.length);
+      break;
+    case 'Delete':
+      textarea.value = textarea.value.slice(0, index) + textarea.value.slice(index + 1, textarea.value.length);
+      break;
+    default:
+      textarea.value += char.innerText;
+      break;
+  }
+};
+
 const updateChars = () => {
   const chars = document.querySelectorAll('.char');
   chars.forEach((char) => {
     char.addEventListener('click', () => {
-      // document.querySelector('.textarea').value += char.innerText;
       pushChar(char.innerText, char);
     });
   });
@@ -48,7 +82,7 @@ const drawHtml = (arr) => {
   desc.className = 'desc';
   desc.innerText = 'Клавиатура создана в операционной системе Windows\nДля переключения языка комбинация: левые ctrl + alt';
   textArea.className = 'textarea';
-  textArea.setAttribute('disabled', 'disabled');
+  // textArea.setAttribute('disabled', 'disabled');
   document.body.prepend(desc);
   document.body.prepend(drawKeyboard(arr));
   document.body.prepend(textArea);
@@ -71,6 +105,7 @@ const getLocalStorage = () => {
     drawHtml(symbolsLowEn);
   }
   updateChars();
+  document.querySelector('.textarea').addEventListener('keydown', e => e.preventDefault());
 };
 window.addEventListener('beforeunload', setLocalStorage);
 window.addEventListener('load', getLocalStorage);
@@ -115,37 +150,6 @@ window.addEventListener('keydown', (event) => {
     updateChars();
   }
 });
-
-const pushChar = (eventCode, char) => {
-  const textarea = document.querySelector('.textarea');
-  if (eventCode === 'ControlLeft' || eventCode === 'ControlRight' || eventCode === 'AltLeft' || eventCode === 'AltRight' || eventCode === 'ShiftLeft' || eventCode === 'ShiftRight' || eventCode === 'CapsLock' || eventCode === 'MetaLeft' || eventCode === 'Win' || eventCode === 'Ctrl' || eventCode === 'Alt' || eventCode === 'Shift') {
-    return;
-  }
-  switch (eventCode) {
-    case 'Space':
-      textarea.value += ' ';
-      break;
-    case '':
-      textarea.value += ' ';
-      break;
-    case 'Tab':
-      textarea.value += '    ';
-      break;
-    case 'Enter':
-      textarea.value += '\n';
-      break;
-    case 'Backspace':
-      textarea.value = textarea.value.slice(0, -1);
-      break;
-    case 'Delete':
-      // переделать
-      textarea.value = textarea.value.slice(1, textarea.value.length);
-      break;
-    default:
-      textarea.value += char.innerText;
-      break;
-  }
-}
 
 document.onkeydown = (event) => {
   const char = document.querySelector(`[data="${event.code}"]`);
