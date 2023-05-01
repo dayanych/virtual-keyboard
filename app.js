@@ -1,11 +1,24 @@
 const symbolsLowEn = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'Delete', 'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '&uArr;', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '&lArr;', '&dArr;', '&rArr;', 'Ctrl'];
-const symbolsUpperEn = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\', 'Delete', 'CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', "'", 'Enter', 'Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', '&uArr;', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '&lArr;', '&dArr;', '&rArr;', 'Ctrl'];
 const symbolsLowRu = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Delete', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '&uArr;', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '&lArr;', '&dArr;', '&rArr;', 'Ctrl'];
-const symbolsUpperRu = ['Ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', '\\', 'Delete', 'CapsLock', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', 'Enter', 'Shift', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', '.', '&uArr;', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '&lArr;', '&dArr;', '&rArr;', 'Ctrl'];
 
-const code = [['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace'], ['Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete'], ['CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter'], ['ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight'], ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'ControlRight']];
+const charsEn = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M'];
+const charsRu = ['ё', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю'];
+
+const numbers = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='];
+const specialСharactersEn = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+'];
+const specialСharactersRu = ['!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+'];
+
+const code = [
+  ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace'],
+  ['Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete'],
+  ['CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter'],
+  ['ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight'],
+  ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'ControlRight'],
+];
 
 let lang = 'en';
+let capsLockOn = false;
+let isTrappedKeyPressed = false;
 
 const getPosition = () => {
   return document.querySelector('.textarea').selectionStart;
@@ -54,14 +67,17 @@ const updateChars = () => {
 const drawKeyboard = (arr) => {
   const keyboard = document.createElement('div');
   keyboard.className = 'keyboard';
-  const keyboardLayout = arr.reduce((acc, curr, index) => {
-    if (['Tab', 'CapsLock', 'Shift', 'Ctrl'].includes(curr) && index !== arr.length - 1 && index !== 54) {
-      acc.push([curr]);
-    } else {
-      acc[acc.length - 1].push(curr);
-    }
-    return acc;
-  }, [[]]);
+  const keyboardLayout = arr.reduce(
+    (acc, curr, index) => {
+      if (['Tab', 'CapsLock', 'Shift', 'Ctrl'].includes(curr) && index !== arr.length - 1 && index !== 54) {
+        acc.push([curr]);
+      } else {
+        acc[acc.length - 1].push(curr);
+      }
+      return acc;
+    },
+    [[]]
+  );
   for (let i = 0; i < keyboardLayout.length; i += 1) {
     const row = document.createElement('div');
     row.className = 'row';
@@ -80,7 +96,7 @@ const drawHtml = (arr) => {
   title.className = 'title';
   title.innerText = 'Virtual Keyboard';
   desc.className = 'desc';
-  desc.innerText = 'Клавиатура создана в операционной системе Windows\nДля переключения языка комбинация: левые ctrl + alt';
+  desc.innerText = 'Клавиатура создана в операционной системе Windows\nДля переключения языка: alt';
   textArea.className = 'textarea';
   // textArea.setAttribute('disabled', 'disabled');
   document.body.prepend(desc);
@@ -105,79 +121,137 @@ const getLocalStorage = () => {
     drawHtml(symbolsLowEn);
   }
   updateChars();
-  document.querySelector('.textarea').addEventListener('keydown', e => e.preventDefault());
+  document.querySelector('.textarea').addEventListener('keydown', (e) => e.preventDefault());
 };
 window.addEventListener('beforeunload', setLocalStorage);
 window.addEventListener('load', getLocalStorage);
 
 window.addEventListener('keydown', (event) => {
-  if ((event.ctrlKey && event.altKey)) {
-    document.querySelector('.keyboard').remove();
-    if (lang === 'ru') {
-      lang = 'en';
-      if (event.getModifierState && event.getModifierState('CapsLock')) {
-        document.querySelector('.textarea').after(drawKeyboard(symbolsUpperEn));
-      } else {
-        document.querySelector('.textarea').after(drawKeyboard(symbolsLowEn));
-      }
-    } else {
-      lang = 'ru';
-      if (event.getModifierState && event.getModifierState('CapsLock')) {
-        document.querySelector('.textarea').after(drawKeyboard(symbolsUpperRu));
-      } else {
-        document.querySelector('.textarea').after(drawKeyboard(symbolsLowRu));
-      }
-    }
-    updateChars();
-  }
-  if (event.code === 'CapsLock') {
-    document.querySelector('.keyboard').remove();
-    if (event.getModifierState && event.getModifierState('CapsLock')) {
-      if (lang === 'ru') {
-        document.querySelector('.textarea').after(drawKeyboard(symbolsUpperRu));
-      }
-      if (lang === 'en') {
-        document.querySelector('.textarea').after(drawKeyboard(symbolsUpperEn));
-      }
-    } else {
-      if (lang === 'ru') {
-        document.querySelector('.textarea').after(drawKeyboard(symbolsLowRu));
-      }
-      if (lang === 'en') {
-        document.querySelector('.textarea').after(drawKeyboard(symbolsLowEn));
-      }
-    }
-    updateChars();
-  }
-});
-
-document.onkeydown = (event) => {
+  const chars = document.querySelectorAll('.char');
   const char = document.querySelector(`[data="${event.code}"]`);
   char.classList.add('active');
-};
-document.onkeyup = (event) => {
-  const char = document.querySelector(`[data="${event.code}"]`);
-  char.classList.remove('active');
-  pushChar(event.code, char);
-};
+  if (event.key === 'Alt') {
+    if (lang === 'ru') {
+      lang = 'en';
+      chars.forEach((char, i) => {
+        char.innerHTML = symbolsLowEn[i];
+      });
+    } else {
+      lang = 'ru';
+      chars.forEach((char, i) => {
+        char.innerHTML = symbolsLowRu[i];
+      });
+    }
+    chars.forEach((char) => {
+      if (charsEn.includes(char.innerText) || charsRu.includes(char.innerText)) {
+        if (!capsLockOn) {
+          char.innerText = char.innerText.toLowerCase();
+        }
+        if (capsLockOn) {
+          char.innerText = char.innerText.toUpperCase();
+        }
+      }
+    });
+  }
+  if (event.code === 'CapsLock') {
+    capsLockOn = !capsLockOn;
+    chars.forEach((char) => {
+      if (charsEn.includes(char.innerText) || charsRu.includes(char.innerText)) {
+        if (!capsLockOn) {
+          char.innerText = char.innerText.toLowerCase();
+        }
+        if (capsLockOn) {
+          char.innerText = char.innerText.toUpperCase();
+        }
+      }
+    });
+  }
+  if (event.shiftKey && !isTrappedKeyPressed) {
+    isTrappedKeyPressed = true;
+    capsLockOn = !capsLockOn;
+    const chars = document.querySelectorAll('.char');
+    let i = 0;
+    chars.forEach((char) => {
+      if (charsEn.includes(char.innerText) || charsRu.includes(char.innerText)) {
+        if (!capsLockOn) {
+          char.innerText = char.innerText.toLowerCase();
+        }
+        if (capsLockOn) {
+          char.innerText = char.innerText.toUpperCase();
+        }
+      }
+      if (numbers.includes(char.innerText)) {
+        if (lang === 'ru') {
+          char.innerHTML = specialСharactersRu[i];
+        } else {
+          char.innerHTML = specialСharactersEn[i];
+        }
+        i++;
+      }
+    });
+  }
+  if (event.code === 'Tab') {
+    event.preventDefault();
+  }
+  if (event.code === 'AltLeft') {
+    event.preventDefault();
+  }
+  if (event.ctrlKey && event.code === 'KeyD') {
+    event.preventDefault();
+  }
+  if (event.ctrlKey && event.code === 'KeyC') {
+    event.preventDefault();
+  }
+  if (event.ctrlKey && event.code === 'KeyF') {
+    event.preventDefault();
+  }
+  updateChars();
+});
 
-// отмена дефолтного поведения клавиш
-window.addEventListener('keydown', (event) => {
-  if (event.code === 'Tab' || event.key === 'Alt') {
-    event.preventDefault();
+window.addEventListener('keyup', (event) => {
+  console.log();
+  const chars = document.querySelectorAll('.char');
+  chars.forEach((char) => {
+    char.classList.remove('active');
+  });
+  const char = document.querySelector(`[data="${event.code}"]`);
+  if (event.shiftKey) {
+    isTrappedKeyPressed = false;
+    capsLockOn = !capsLockOn;
+    let i = 0;
+    chars.forEach((char) => {
+      if (charsEn.includes(char.innerText) || charsRu.includes(char.innerText)) {
+        if (!capsLockOn) {
+          char.innerText = char.innerText.toLowerCase();
+        }
+        if (capsLockOn) {
+          char.innerText = char.innerText.toUpperCase();
+        }
+      }
+      if (lang === 'ru') {
+        if (specialСharactersRu.includes(char.innerText)) {
+          char.innerHTML = numbers[i];
+        }
+      } else {
+        if (specialСharactersEn.includes(char.innerText)) {
+          char.innerHTML = numbers[i];
+        }
+      }
+      i++;
+    });
   }
-  if (event.ctrlKey && (event.code === 'KeyD')) {
-    event.preventDefault();
-  }
-  if (event.ctrlKey && (event.code === 'KeyC')) {
-    event.preventDefault();
-  }
-  if (event.ctrlKey && (event.code === 'KeyF')) {
-    event.preventDefault();
-  }
+  const doc = document.documentElement;
+  const e = new MouseEvent('mousedown', {
+    bubbles: true,
+    cancelable: true,
+    view: window,
+    buttons: 1,
+  });
+  doc.dispatchEvent(e);
+  pushChar(event.code, char);
 });
 
 // постоянный фокус
-// document.onclick = () => {
-//   document.querySelector('.textarea').focus();
-// };
+document.onkeydown = () => {
+  document.querySelector('.textarea').focus();
+};
