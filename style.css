@@ -1,0 +1,71 @@
+.title {
+  color: #6EB5C0;
+  font-size: 40px;
+}
+
+.textarea {
+  max-width: 790px;
+  height: 200px;
+  width: 100%;
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  width: 100%;
+  align-items: stretch;
+  gap: 7px;
+}
+
+.row {
+  display: flex;
+  gap: 7px;
+}
+
+.char {
+  cursor: pointer;
+  font-size: 18px;
+  width: 40px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 15px; */
+  border-radius: 5px;
+  color: #E2E8E4;
+  background-color: #6EB5C0;
+  transition: all 0.5s;
+  flex-grow: 0;
+}
+
+.active {
+  background-color: #3a6b72;
+}
+
+.backspace {
+  width: 116px;
+  flex-grow: 1;
+}
+.enter {
+  width: 90px;
+  flex-grow: 1;
+}
+.shift {
+  width: 85px;
+  flex-grow: 1;
+}
+.space {
+  width: 245px;
+  flex-grow: 1;
+}
+.delete {
+  flex-grow: 1;
+}
+.capslock {
+  flex-grow: 1;
+}
+
+.desc {
+  font-size: 18px;
+}
