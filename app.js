@@ -1,3 +1,6 @@
+/* eslint-disable max-len */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-plusplus */
 const symbolsLowEn = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'Delete', 'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '&uArr;', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '&lArr;', '&dArr;', '&rArr;', 'Ctrl'];
 const symbolsLowRu = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Delete', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '&uArr;', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '&lArr;', '&dArr;', '&rArr;', 'Ctrl'];
 
@@ -20,9 +23,7 @@ let lang = 'en';
 let capsLockOn = false;
 let isTrappedKeyPressed = false;
 
-const getPosition = () => {
-  return document.querySelector('.textarea').selectionStart;
-};
+const getPosition = () => document.querySelector('.textarea').selectionStart;
 
 const pushChar = (eventCode, char) => {
   const textarea = document.querySelector('.textarea');
@@ -76,7 +77,7 @@ const drawKeyboard = (arr) => {
       }
       return acc;
     },
-    [[]]
+    [[]],
   );
   for (let i = 0; i < keyboardLayout.length; i += 1) {
     const row = document.createElement('div');
@@ -128,8 +129,8 @@ window.addEventListener('load', getLocalStorage);
 
 window.addEventListener('keydown', (event) => {
   const chars = document.querySelectorAll('.char');
-  const char = document.querySelector(`[data="${event.code}"]`);
-  char.classList.add('active');
+  const letter = document.querySelector(`[data="${event.code}"]`);
+  letter.classList.add('active');
   if (event.key === 'Alt') {
     if (lang === 'ru') {
       lang = 'en';
@@ -169,7 +170,6 @@ window.addEventListener('keydown', (event) => {
   if (event.shiftKey && !isTrappedKeyPressed) {
     isTrappedKeyPressed = true;
     capsLockOn = !capsLockOn;
-    const chars = document.querySelectorAll('.char');
     let i = 0;
     chars.forEach((char) => {
       if (charsEn.includes(char.innerText) || charsRu.includes(char.innerText)) {
@@ -209,12 +209,11 @@ window.addEventListener('keydown', (event) => {
 });
 
 window.addEventListener('keyup', (event) => {
-  console.log();
   const chars = document.querySelectorAll('.char');
   chars.forEach((char) => {
     char.classList.remove('active');
   });
-  const char = document.querySelector(`[data="${event.code}"]`);
+  const letter = document.querySelector(`[data="${event.code}"]`);
   if (event.shiftKey) {
     isTrappedKeyPressed = false;
     capsLockOn = !capsLockOn;
@@ -232,7 +231,8 @@ window.addEventListener('keyup', (event) => {
         if (specialСharactersRu.includes(char.innerText)) {
           char.innerHTML = numbers[i];
         }
-      } else {
+      }
+      if (lang === 'ru') {
         if (specialСharactersEn.includes(char.innerText)) {
           char.innerHTML = numbers[i];
         }
@@ -240,15 +240,7 @@ window.addEventListener('keyup', (event) => {
       i++;
     });
   }
-  const doc = document.documentElement;
-  const e = new MouseEvent('mousedown', {
-    bubbles: true,
-    cancelable: true,
-    view: window,
-    buttons: 1,
-  });
-  doc.dispatchEvent(e);
-  pushChar(event.code, char);
+  pushChar(event.code, letter);
 });
 
 // постоянный фокус
