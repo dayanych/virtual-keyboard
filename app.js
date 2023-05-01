@@ -5,7 +5,7 @@ const symbolsLowEn = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-'
 const symbolsLowRu = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Delete', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '&uArr;', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '&lArr;', '&dArr;', '&rArr;', 'Ctrl'];
 
 const charsEn = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M'];
-const charsRu = ['ё', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю'];
+const charsRu = ['ё', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', 'Ё', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю'];
 
 const numbers = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='];
 const specialСharactersEn = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+'];
@@ -24,6 +24,98 @@ let capsLockOn = false;
 let isTrappedKeyPressed = false;
 
 const getPosition = () => document.querySelector('.textarea').selectionStart;
+
+const keyDefaultDown = (event) => {
+  const chars = document.querySelectorAll('.char');
+  if (event === 'Alt') {
+    if (lang === 'ru') {
+      lang = 'en';
+      chars.forEach((char, i) => {
+        char.innerHTML = symbolsLowEn[i];
+      });
+    } else {
+      lang = 'ru';
+      chars.forEach((char, i) => {
+        char.innerHTML = symbolsLowRu[i];
+      });
+    }
+    chars.forEach((char) => {
+      if (charsEn.includes(char.innerText) || charsRu.includes(char.innerText)) {
+        if (!capsLockOn) {
+          char.innerText = char.innerText.toLowerCase();
+        }
+        if (capsLockOn) {
+          char.innerText = char.innerText.toUpperCase();
+        }
+      }
+    });
+  }
+  if (event === 'CapsLock') {
+    capsLockOn = !capsLockOn;
+    chars.forEach((char) => {
+      if (charsEn.includes(char.innerText) || charsRu.includes(char.innerText)) {
+        if (!capsLockOn) {
+          char.innerText = char.innerText.toLowerCase();
+        }
+        if (capsLockOn) {
+          char.innerText = char.innerText.toUpperCase();
+        }
+      }
+    });
+  }
+  if (event === 'Shift' && !isTrappedKeyPressed) {
+    isTrappedKeyPressed = true;
+    capsLockOn = !capsLockOn;
+    let i = 0;
+    chars.forEach((char) => {
+      if (charsEn.includes(char.innerText) || charsRu.includes(char.innerText)) {
+        if (!capsLockOn) {
+          char.innerText = char.innerText.toLowerCase();
+        }
+        if (capsLockOn) {
+          char.innerText = char.innerText.toUpperCase();
+        }
+      }
+      if (numbers.includes(char.innerText)) {
+        if (lang === 'ru') {
+          char.innerHTML = specialСharactersRu[i];
+        } else {
+          char.innerHTML = specialСharactersEn[i];
+        }
+        i++;
+      }
+    });
+  }
+};
+const keyDefaultUp = (event) => {
+  const chars = document.querySelectorAll('.char');
+  if (event === 'Shift') {
+    isTrappedKeyPressed = false;
+    capsLockOn = !capsLockOn;
+    let i = 0;
+    chars.forEach((char) => {
+      if (charsEn.includes(char.innerText) || charsRu.includes(char.innerText)) {
+        if (!capsLockOn) {
+          char.innerText = char.innerText.toLowerCase();
+        }
+        if (capsLockOn) {
+          char.innerText = char.innerText.toUpperCase();
+        }
+      }
+      if (lang === 'ru') {
+        if (specialСharactersRu.includes(char.innerText)) {
+          char.innerHTML = numbers[i];
+        }
+      }
+      if (lang === 'en') {
+        if (specialСharactersEn.includes(char.innerText)) {
+          char.innerHTML = numbers[i];
+        }
+      }
+      i++;
+    });
+  }
+};
 
 const pushChar = (eventCode, char) => {
   const textarea = document.querySelector('.textarea');
@@ -59,8 +151,14 @@ const pushChar = (eventCode, char) => {
 const updateChars = () => {
   const chars = document.querySelectorAll('.char');
   chars.forEach((char) => {
-    char.addEventListener('click', () => {
+    char.addEventListener('mousedown', () => {
+      char.classList.add('active');
+      keyDefaultDown(char.innerText);
       pushChar(char.innerText, char);
+    });
+    char.addEventListener('mouseup', () => {
+      char.classList.remove('active');
+      keyDefaultUp(char.innerText);
     });
   });
 };
@@ -83,9 +181,31 @@ const drawKeyboard = (arr) => {
     const row = document.createElement('div');
     row.className = 'row';
     for (let j = 0; j < keyboardLayout[i].length; j += 1) {
-      row.innerHTML += `<div class="char" data="${code[i][j]}">${keyboardLayout[i][j]}</div>`;
+      switch (keyboardLayout[i][j]) {
+        case ' ':
+          row.innerHTML += `<div class="char space" data="${code[i][j]}">${keyboardLayout[i][j]}</div>`;
+          break;
+        case 'Shift':
+          row.innerHTML += `<div class="char shift" data="${code[i][j]}">${keyboardLayout[i][j]}</div>`;
+          break;
+        case 'Delete':
+          row.innerHTML += `<div class="char delete" data="${code[i][j]}">${keyboardLayout[i][j]}</div>`;
+          break;
+        case 'CapsLock':
+          row.innerHTML += `<div class="char capslock" data="${code[i][j]}">${keyboardLayout[i][j]}</div>`;
+          break;
+        case 'Backspace':
+          row.innerHTML += `<div class="char backspace" data="${code[i][j]}">${keyboardLayout[i][j]}</div>`;
+          break;
+        case 'Enter':
+          row.innerHTML += `<div class="char enter" data="${code[i][j]}">${keyboardLayout[i][j]}</div>`;
+          break;
+        default:
+          row.innerHTML += `<div class="char" data="${code[i][j]}">${keyboardLayout[i][j]}</div>`;
+          break;
+      }
     }
-    keyboard.appendChild(row);
+    keyboard.append(row);
   }
   return keyboard;
 };
@@ -128,72 +248,16 @@ window.addEventListener('beforeunload', setLocalStorage);
 window.addEventListener('load', getLocalStorage);
 
 window.addEventListener('keydown', (event) => {
-  const chars = document.querySelectorAll('.char');
   const letter = document.querySelector(`[data="${event.code}"]`);
   letter.classList.add('active');
-  if (event.key === 'Alt') {
-    if (lang === 'ru') {
-      lang = 'en';
-      chars.forEach((char, i) => {
-        char.innerHTML = symbolsLowEn[i];
-      });
-    } else {
-      lang = 'ru';
-      chars.forEach((char, i) => {
-        char.innerHTML = symbolsLowRu[i];
-      });
-    }
-    chars.forEach((char) => {
-      if (charsEn.includes(char.innerText) || charsRu.includes(char.innerText)) {
-        if (!capsLockOn) {
-          char.innerText = char.innerText.toLowerCase();
-        }
-        if (capsLockOn) {
-          char.innerText = char.innerText.toUpperCase();
-        }
-      }
-    });
-  }
-  if (event.code === 'CapsLock') {
-    capsLockOn = !capsLockOn;
-    chars.forEach((char) => {
-      if (charsEn.includes(char.innerText) || charsRu.includes(char.innerText)) {
-        if (!capsLockOn) {
-          char.innerText = char.innerText.toLowerCase();
-        }
-        if (capsLockOn) {
-          char.innerText = char.innerText.toUpperCase();
-        }
-      }
-    });
-  }
-  if (event.shiftKey && !isTrappedKeyPressed) {
-    isTrappedKeyPressed = true;
-    capsLockOn = !capsLockOn;
-    let i = 0;
-    chars.forEach((char) => {
-      if (charsEn.includes(char.innerText) || charsRu.includes(char.innerText)) {
-        if (!capsLockOn) {
-          char.innerText = char.innerText.toLowerCase();
-        }
-        if (capsLockOn) {
-          char.innerText = char.innerText.toUpperCase();
-        }
-      }
-      if (numbers.includes(char.innerText)) {
-        if (lang === 'ru') {
-          char.innerHTML = specialСharactersRu[i];
-        } else {
-          char.innerHTML = specialСharactersEn[i];
-        }
-        i++;
-      }
-    });
-  }
+  keyDefaultDown(event.key);
   if (event.code === 'Tab') {
     event.preventDefault();
   }
-  if (event.code === 'AltLeft') {
+  if (event.altKey) {
+    event.preventDefault();
+  }
+  if (event.shiftKey) {
     event.preventDefault();
   }
   if (event.ctrlKey && event.code === 'KeyD') {
@@ -209,37 +273,9 @@ window.addEventListener('keydown', (event) => {
 });
 
 window.addEventListener('keyup', (event) => {
-  const chars = document.querySelectorAll('.char');
-  chars.forEach((char) => {
-    char.classList.remove('active');
-  });
   const letter = document.querySelector(`[data="${event.code}"]`);
-  if (event.shiftKey) {
-    isTrappedKeyPressed = false;
-    capsLockOn = !capsLockOn;
-    let i = 0;
-    chars.forEach((char) => {
-      if (charsEn.includes(char.innerText) || charsRu.includes(char.innerText)) {
-        if (!capsLockOn) {
-          char.innerText = char.innerText.toLowerCase();
-        }
-        if (capsLockOn) {
-          char.innerText = char.innerText.toUpperCase();
-        }
-      }
-      if (lang === 'ru') {
-        if (specialСharactersRu.includes(char.innerText)) {
-          char.innerHTML = numbers[i];
-        }
-      }
-      if (lang === 'ru') {
-        if (specialСharactersEn.includes(char.innerText)) {
-          char.innerHTML = numbers[i];
-        }
-      }
-      i++;
-    });
-  }
+  letter.classList.remove('active');
+  keyDefaultUp(event.key);
   pushChar(event.code, letter);
 });
 
